@@ -116,7 +116,7 @@ while True:
             ingredients.append(source_url)
             for allergen in allergens:
                 if any(allergen in ing for ing in ingredients):
-                    print("*** This recipe contains at least 1 ingredient that you are allergic to. ***")
+                    print("*** This recipe contains an ingredient that you are allergic to. ***")
             print(ingredients)
         elif next_move == "image".title():
             pic_request = input("Which recipe would you like to see? ").title()
