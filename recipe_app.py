@@ -103,19 +103,15 @@ while True:
         print("----------------------------------------------------------")
         if next_move == "ingredients".title():
             recipe_request = input("For which recipe would you like to see the ingredients? ").title()
-#TODO ERROR MESSAGE'
             f2f_url = matching_recipe(recipe_request)
             source_url = matching_url(recipe_request)
             new_response = requests.get(f2f_url)
             response_html = new_response.text
             soup = BeautifulSoup(response_html, "lxml")
             ingredient_names = soup.find_all("li", itemprop="ingredients")
-            # print(ingredient_names)
             ingredients = []
             for ingredient in ingredient_names:
                 rec_ingr = ingredient.text.strip()
-                # if rec_ingr.title() in allergens:
-                #     rec_ingr = rec_ingr + "*"
                 ingredients.append(rec_ingr)
             ingredients.append(source_url)
             for allergen in allergens:
@@ -124,7 +120,6 @@ while True:
             print(ingredients)
          elif next_move == "image".title():
             pic_request = input("Which recipe would you like to see? ").title()
-#TODO ERROR MESSAGE
             print("""
             ----------------------------------------------------
                         Pulling up the image now.
@@ -144,9 +139,7 @@ while True:
             request_url = f"http://food2fork.com/api/search?key=9053cc2ecc0ad5b108929907c200a9cc&q={food_item}&page={pagination}"
             response = requests.get(request_url)
             response_output = json.loads(response.text)
-            # print(response_output)
             recipe_list = response_output["recipes"]
-            # print(request_url)
             for rec in recipe_list:
                 soci_rank = "{0:.2f}".format(rec["social_rank"])
                 print(rec["title"] + " | " + rec["publisher"] + " | " + soci_rank)
@@ -158,19 +151,14 @@ while True:
             response_html = new_response.text
             soup = BeautifulSoup(response_html, "lxml")
             ingredient_names = soup.find_all("li", itemprop="ingredients")
-            # print(ingredient_names)
             ingredients = []
             for ingredient in ingredient_names:
                 rec_ingr = ingredient.text.strip()
                 ingredients.append(rec_ingr)
             ingredients.append(source_url)
-            # pdb.set_trace()
             keep = gkeepapi.Keep()
             keep.login(goog_username, goog_password)
-            # keep.login("pythonprincess0", "September24!")
-            # note = keep.createNote('Awesome', 'This is so cool!')
             ingredient_list_param = [(f, False) for f in ingredients]
-            # print(fruit_list_param)
             glist = keep.createList(recipe_request, ingredient_list_param)
             glist.pinned = True
             keep.sync()
