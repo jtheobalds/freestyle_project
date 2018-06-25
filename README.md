@@ -7,8 +7,35 @@ on food items and send list of ingredients to Google Keep
 
 ## Installing the program
 
+In order to use the program, it must be installed. One must "fork" this repository and download the forked version using the GitHub.com online interface or the Git command-line interface. From the command-line, the repository can be downloaded by "cloning" it using:
+```sh
+git clone https://github.com/YOUR_USERNAME/freestyle_project.git
+```
+
+After downloading your forked repository, navigate to the root directory:
+
+```sh
+cd freestyle_project
+```
+
+Next, you will need to install the packages needed for the application. Depending on your system requirements, use one of the following commands for installation:
+
+```sh
+# Pipenv on Mac or Windows:
+pipenv install -r requirements.txt
+
+# Homebrew-installed Python 3.x on Mac OS:
+pip3 install -r requirements.txt
+
+# All others:
+pip install -r requirements.txt
+```
+
+If you are using Pipenv, enter a new virtual environment (`pipenv shell`) before running any of the commands below.
+
+All commands below assume you are running them from this repository's root directory.
+
 ## Setup
-install requirements.txt
 
 ### Environment Variables
 
