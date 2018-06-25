@@ -47,7 +47,7 @@ def menu(recipe_count=30):
 food_item = input("Please input a meal (e.g. pasta), recipe ingredient (e.g. chicken), style (e.g. Mexican), or cooking method (e.g. grilled) : ")
 
 allergens = []
-food_allergies = input("Do you have any food allergies (yes or no)? ").title()
+food_allergies = input("Do you have any food allergies ('yes' if yes)? ").title()
 if food_allergies == "yes".title():
     while True:
         try:
@@ -62,12 +62,10 @@ if food_allergies == "yes".title():
                 allergens.append(allergen)
         except:
             print("error")
-elif food_allergies == "no".title():
+else: 
     allergen_count = len(allergens)
     allergen_count = str(allergen_count)
     print(allergen_count + " food allergies listed")
-else:
-    print("I'm sorry. Please input 'yes' or 'no'.")
 
 request_url = f"http://food2fork.com/api/search?key={api_key}&q={food_item}"
 response = requests.get(request_url)
@@ -91,7 +89,7 @@ else:
         recipe_name = rec["title"]
         recipe_name = recipe_name.title()
         source_link = rec["source_url"]
-        print(rec["title"] + " | " + rec["publisher"] + " | " + soci_rank)
+        print(rec["title"] + " | " + rec["publisher"] + " | " + "Social rank: " + soci_rank)
 
 pagination = 1
 
@@ -114,8 +112,9 @@ while True:
                 rec_ingr = ingredient.text.strip()
                 ingredients.append(rec_ingr)
             ingredients.append(source_url)
+            print("--------------------------------------------------------------------")
             for allergen in allergens:
-                if any(allergen in ing for ing in ingredients):
+                if any(allergen.title() in ing.title() for ing in ingredients):
                     print("*** This recipe contains an ingredient that you are allergic to. ***")
             print(ingredients)
         elif next_move == "image".title():
@@ -136,13 +135,13 @@ while True:
             dir_url = matching_source(dir_request)
         elif next_move == "more".title():
             pagination = pagination + 1
-            request_url = f"http://food2fork.com/api/search?key=9053cc2ecc0ad5b108929907c200a9cc&q={food_item}&page={pagination}"
+            request_url = f"http://food2fork.com/api/search?key={api_key}&q={food_item}&page={pagination}"
             response = requests.get(request_url)
             response_output = json.loads(response.text)
             recipe_list = response_output["recipes"]
             for rec in recipe_list:
                 soci_rank = "{0:.2f}".format(rec["social_rank"])
-                print(rec["title"] + " | " + rec["publisher"] + " | " + soci_rank)
+                print(rec["title"] + " | " + rec["publisher"] + " | " + "Social rank: " + soci_rank)
         elif next_move == "send".title():
             recipe_request = input("Which recipe do you want in your list? ").title()
             f2f_url = matching_recipe(recipe_request)
