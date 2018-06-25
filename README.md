@@ -42,7 +42,7 @@ export g_pass=mypassword123
 
 ## Run the app
 
-After all of the preparation steps have been take, the recipe app can be run:
+After all of the preparation steps have been taken, the recipe app can be run:
 ```sh
 # Homebrew-installed Python 3.x on Mac OS:
 python3 recipe_app.py
