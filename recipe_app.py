@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 import gkeepapi
 import webbrowser
 
-api_key = os.environ.get("FOOD_API")
+api_key = os.environ.get("food_api")
 goog_username = os.environ.get("g_user")
 goog_password = os.environ.get("g_pass")
 
