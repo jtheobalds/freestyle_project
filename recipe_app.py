@@ -1,7 +1,9 @@
 import json
 import requests
 import os
+import pdb
 from bs4 import BeautifulSoup
+import webbrowser
 
 api_key = os.environ.get("FOOD_API")
 
@@ -31,7 +33,9 @@ else:
         source_link = rec["source_url"]
         print(rec["title"] + " | " + rec["publisher"] + " | " + soci_rank)
 
-        
+while True:
+    try:
+        print(menu())        
         print("----------------------------------------------------------")
         next_move = input("What would you like to do next? ").title()
         print("----------------------------------------------------------")
@@ -56,3 +60,20 @@ else:
                 if any(allergen in ing for ing in ingredients):
                     print("*** This recipe contains at least 1 ingredient that you are allergic to. ***")
             print(ingredients)
+         elif next_move == "image".title():
+            pic_request = input("Which recipe would you like to see? ").title()
+#TODO ERROR MESSAGE
+            print("""
+            ----------------------------------------------------
+                        Pulling up the image now.
+            ----------------------------------------------------
+            """)
+            pic_url = matching_pic(pic_request)
+        elif next_move == "directions".title():
+            dir_request = input("For which recipe would you like to see the directions? ").title()
+            print("""
+            -----------------------------------------------------
+                    Pulling up the directions now.
+            -----------------------------------------------------
+            """)
+            dir_url = matching_source(dir_request)
