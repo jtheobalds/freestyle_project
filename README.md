@@ -68,7 +68,7 @@ export g_pass=mypassword123
 ```
 If your account requires Twofactor login, you will need to create a password through Google to access the Keep file from the program.
 
-## Run the app
+## Using the app
 
 After all of the preparation steps have been taken, the recipe app can be run:
 ```sh
@@ -78,3 +78,8 @@ python3 recipe_app.py
 # All others:
 python recipe_app.py
 ```
+The app will begin by asking the user to name the kind of recipe they are interested in. This can be anything from an individual ingredient, to a style of cooking, to a method of cooking.
+
+Next, the user will input any food allergies that should be considered. 
+
+The app will then output 30 recipes, with which the user has the option to view 'more', view the 'ingredients', view the 'directions' of how to make the recipe, view an 'image' of the recipe, or send a list of the ingredients + the original link to Google Keep. 'Directions' and 'image' will open a web browser window. The program will continue to run until the user says that they are 'Done'.
