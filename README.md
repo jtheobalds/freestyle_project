@@ -1,14 +1,52 @@
 # freestyle_project
 
-[Google Keep instructions](https://github.com/Nekmo/gkeep/blob/develop/README.rst)
+# Recipe and Lists App
 
-The user will need to create a txt file with their credentials in it called `auth.txt`::
-  <username>  <password>
-  
-For example::
+This is a python application that will allow a user to search for recipes based
+on food items and send list of ingredients to Google Keep
 
-    jnt303 mypassword1234
+## Installing the program
 
-You can also use the ``--auth`` parameter to set the path to the file with the credentials::
+## Setup
+install requirements.txt
 
-    gkeep --auth /path/to/auth.txt
+### Environment Variables
+
+First, you will need to obtain a [Food2Fork API key](https://food2fork.com/about/api). This key will be used to access data from the Food2Fork website and download recipes.
+
+This key should be kept private. In order to keep it from being tracked in the main application, you will need to set up an environment variable named `FOOD_API` in the command line.
+
+Windows users can set the variable in the command line using the `set` command:
+```sh
+# Windows Command Prompt:
+set  FOOD_API=730284y5uf508930
+```
+
+while Mac users can use `~/.bash_profile`:
+```sh
+# Mac text editor
+export FOOD_API=730284y5uf508930
+```
+Mac users will need to exit and re-enter for changes to take effect.
+
+Users will also need to set environment variables for their Google username called `g_user` and their Google password called `g_pass`. These will allow the ingredients to be published to the individual's Google Keep file (only Google accounts, not NYU quite yet).
+```sh
+# Windows users
+set g_user=pythonprincess0
+set g_pass=mypassword123
+
+# Mac users
+export g_user=pythonprincess0
+export g_pass=mypassword123
+```
+
+## Run the app
+
+After all of the preparation steps have been take, the recipe app can be run:
+```sh
+# Homebrew-installed Python 3.x on Mac OS:
+python3 recipe_app.py
+
+# All others:
+python recipe_app.py
+```
