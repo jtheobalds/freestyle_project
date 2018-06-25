@@ -46,6 +46,29 @@ def menu(recipe_count=30):
 
 food_item = input("Please input a meal (e.g. pasta), recipe ingredient (e.g. chicken), style (e.g. Mexican), or cooking method (e.g. grilled) : ")
 
+allergens = []
+food_allergies = input("Do you have any food allergies ('yes' if yes)? ").title()
+if food_allergies == "yes".title():
+    while True:
+        try:
+            allergen = input("What are you allergic to (please input one at a time)? ").title()
+            allergen = allergen.title()
+            if allergen == "done".title():
+                allergen_count = len(allergens)
+                allergen_count = str(allergen_count)
+                print(allergen_count + " food allergens listed")
+                break
+            else:
+                allergens.append(allergen)
+        except:
+            print("error")
+elif food_allergies == "no".title():
+    allergen_count = len(allergens)
+    allergen_count = str(allergen_count)
+    print(allergen_count + " food allergies listed")
+else:
+    print("I'm sorry. Please input 'yes' or 'no'.")
+
 request_url = f"http://food2fork.com/api/search?key={api_key}&q={food_item}"
 response = requests.get(request_url)
 # pdb.set_trace()
@@ -156,3 +179,17 @@ while True:
                 Sending the ingredients to your account
             ----------------------------------------------------
             """)
+        elif next_move == "done".title():
+            print("""
+            ----------------------------------------------------
+                Thank you for exploring recipes with us!
+                        Now let's GET COOKING!
+            ----------------------------------------------------
+            """)
+            break
+        else:
+            print("Oops! That's an invalid function. Please select an option from the menu.")
+    except:
+        print("""
+        I'm sorry. I can't find that recipe. Please choose one from the RECIPES list above.
+        """)
