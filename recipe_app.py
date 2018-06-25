@@ -33,6 +33,8 @@ else:
         source_link = rec["source_url"]
         print(rec["title"] + " | " + rec["publisher"] + " | " + soci_rank)
 
+pagination = 1
+
 while True:
     try:
         print(menu())        
@@ -77,3 +79,16 @@ while True:
             -----------------------------------------------------
             """)
             dir_url = matching_source(dir_request)
+        elif next_move == "more".title():
+            pagination = pagination + 1
+            request_url = f"http://food2fork.com/api/search?key=9053cc2ecc0ad5b108929907c200a9cc&q={food_item}&page={pagination}"
+            response = requests.get(request_url)
+            response_output = json.loads(response.text)
+            # print(response_output)
+            recipe_list = response_output["recipes"]
+            # print(request_url)
+            for rec in recipe_list:
+                soci_rank = "{0:.2f}".format(rec["social_rank"])
+                print(rec["title"] + " | " + rec["publisher"] + " | " + soci_rank)
+        elif next_move == "send".title():
+            recipe_request = input("Which recipe do you want in your list? ").title()
