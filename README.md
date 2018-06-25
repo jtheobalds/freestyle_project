@@ -3,7 +3,7 @@
 # Recipe and Lists App
 
 This is a python application that will allow a user to search for recipes based
-on food items and send list of ingredients to Google Keep
+on food items and view the recipe, its ingredients, and send a list of ingredients to Google Keep.
 
 ## Installing the program
 
@@ -41,12 +41,12 @@ All commands below assume you are running them from this repository's root direc
 
 First, you will need to obtain a [Food2Fork API key](https://food2fork.com/about/api). This key will be used to access data from the Food2Fork website and download recipes.
 
-This key should be kept private. In order to keep it from being tracked in the main application, you will need to set up an environment variable named `FOOD_API` in the command line.
+This key should be kept private. In order to keep it from being tracked in the main application, you will need to set up an environment variable named `food_api` in the command line.
 
 Windows users can set the variable in the command line using the `set` command:
 ```sh
 # Windows Command Prompt:
-set  FOOD_API=730284y5uf508930
+set  food_api=730284y5uf508930
 ```
 
 while Mac users can use `~/.bash_profile`:
