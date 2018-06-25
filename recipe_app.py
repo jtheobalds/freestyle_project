@@ -3,9 +3,46 @@ import requests
 import os
 import pdb
 from bs4 import BeautifulSoup
+import gkeepapi
 import webbrowser
 
 api_key = os.environ.get("FOOD_API")
+goog_username = os.environ.get("g_user")
+goog_password = os.environ.get("g_pass")
+
+
+def matching_recipe(recipe_request):
+    recipe_url = [r for r in recipe_list if r["title"] == recipe_request]
+    return recipe_url[0]["f2f_url"]
+
+def matching_url(recipe_request):
+    official_url = [r for r in recipe_list if r["title"] == recipe_request]
+    return official_url[0]["source_url"]
+
+def matching_source(recipe_request):
+    off_source_url = [r for r in recipe_list if r["title"] == recipe_request]
+    webbrowser.open(off_source_url[0]["source_url"])
+
+def matching_pic(recipe_request):
+    picture_url = [r for r in recipe_list if r["title"] == pic_request]
+    webbrowser.open(picture_url[0]["image_url"])
+
+def menu(recipe_count=30):
+    menu = f"""
+    ------------------------------------------------------------------
+                RECIPE OPTIONS
+    -------------------------------------------------------------------
+        operation     | description
+        ------------  | -------------
+        'More'        | Prints 30 more recipe options.
+        'Ingredients' | Displays a list of ingredients for the recipe.
+        'Directions'  | Opens the source directions in web browser
+        'Image'       | Opens a picture of the recipe in web browser.
+        'Send'        | Sends a list of ingredients and link to the source
+                        to a Google Keep list.
+        'Done'        | Exits the program.
+    """
+    return menu
 
 food_item = input("Please input a meal (e.g. pasta), recipe ingredient (e.g. chicken), style (e.g. Mexican), or cooking method (e.g. grilled) : ")
 
@@ -92,3 +129,30 @@ while True:
                 print(rec["title"] + " | " + rec["publisher"] + " | " + soci_rank)
         elif next_move == "send".title():
             recipe_request = input("Which recipe do you want in your list? ").title()
+            f2f_url = matching_recipe(recipe_request)
+            source_url = matching_url(recipe_request)
+            new_response = requests.get(f2f_url)
+            response_html = new_response.text
+            soup = BeautifulSoup(response_html, "lxml")
+            ingredient_names = soup.find_all("li", itemprop="ingredients")
+            # print(ingredient_names)
+            ingredients = []
+            for ingredient in ingredient_names:
+                rec_ingr = ingredient.text.strip()
+                ingredients.append(rec_ingr)
+            ingredients.append(source_url)
+            # pdb.set_trace()
+            keep = gkeepapi.Keep()
+            keep.login(goog_username, goog_password)
+            # keep.login("pythonprincess0", "September24!")
+            # note = keep.createNote('Awesome', 'This is so cool!')
+            ingredient_list_param = [(f, False) for f in ingredients]
+            # print(fruit_list_param)
+            glist = keep.createList(recipe_request, ingredient_list_param)
+            glist.pinned = True
+            keep.sync()
+            print("""
+            ----------------------------------------------------
+                Sending the ingredients to your account
+            ----------------------------------------------------
+            """)
