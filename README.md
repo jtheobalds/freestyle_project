@@ -45,24 +45,24 @@ This key should be kept private. In order to keep it from being tracked in the m
 
 Windows users can set the variable in the command line using the `set` command:
 ```sh
-# Windows Command Prompt:
+# Windows Command Prompt example:
 set  food_api=730284y5uf508930
 ```
 
 while Mac users can use `~/.bash_profile`:
 ```sh
-# Mac text editor
+# Mac text editor example
 export FOOD_API=730284y5uf508930
 ```
 Mac users will need to exit and re-enter for changes to take effect.
 
 Users will also need to set environment variables for their Google username called `g_user` and their Google password called `g_pass`. These will allow the ingredients to be published to the individual's Google Keep file (only Google accounts, not NYU quite yet).
 ```sh
-# Windows users
+# Windows users example
 set g_user=pythonprincess0
 set g_pass=mypassword123
 
-# Mac users
+# Mac users example
 export g_user=pythonprincess0
 export g_pass=mypassword123
 ```
