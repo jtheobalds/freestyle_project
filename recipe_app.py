@@ -15,3 +15,18 @@ response_output = json.loads(response.text)
 # pdb.set_trace()
 
 recipe_list = response_output["recipes"]
+if recipe_list == []:
+    print("I'm sorry. I could not find any recipes for that item.")
+    quit("Please come back if you think of anything else you would like to explore.")
+else:
+    print("""
+    ----------------------------------------------------
+                        RECIPES
+    ----------------------------------------------------
+    """)
+    for rec in recipe_list:
+        soci_rank = "{0:.2f}".format(rec["social_rank"])
+        recipe_name = rec["title"]
+        recipe_name = recipe_name.title()
+        source_link = rec["source_url"]
+        print(rec["title"] + " | " + rec["publisher"] + " | " + soci_rank)
