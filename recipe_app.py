@@ -47,7 +47,7 @@ def menu(recipe_count=30):
 food_item = input("Please input a meal (e.g. pasta), recipe ingredient (e.g. chicken), style (e.g. Mexican), or cooking method (e.g. grilled) : ")
 
 allergens = []
-food_allergies = input("Do you have any food allergies ('yes' if yes)? ").title()
+food_allergies = input("Do you have any food allergies (yes or no)? ").title()
 if food_allergies == "yes".title():
     while True:
         try:
