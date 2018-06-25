@@ -66,6 +66,7 @@ set g_pass=mypassword123
 export g_user=pythonprincess0
 export g_pass=mypassword123
 ```
+If your account requires Twofactor login, you will need to create a password through Google to access the Keep file from the program.
 
 ## Run the app
 
