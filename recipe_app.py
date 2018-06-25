@@ -30,3 +30,29 @@ else:
         recipe_name = recipe_name.title()
         source_link = rec["source_url"]
         print(rec["title"] + " | " + rec["publisher"] + " | " + soci_rank)
+
+        
+        print("----------------------------------------------------------")
+        next_move = input("What would you like to do next? ").title()
+        print("----------------------------------------------------------")
+        if next_move == "ingredients".title():
+            recipe_request = input("For which recipe would you like to see the ingredients? ").title()
+#TODO ERROR MESSAGE'
+            f2f_url = matching_recipe(recipe_request)
+            source_url = matching_url(recipe_request)
+            new_response = requests.get(f2f_url)
+            response_html = new_response.text
+            soup = BeautifulSoup(response_html, "lxml")
+            ingredient_names = soup.find_all("li", itemprop="ingredients")
+            # print(ingredient_names)
+            ingredients = []
+            for ingredient in ingredient_names:
+                rec_ingr = ingredient.text.strip()
+                # if rec_ingr.title() in allergens:
+                #     rec_ingr = rec_ingr + "*"
+                ingredients.append(rec_ingr)
+            ingredients.append(source_url)
+            for allergen in allergens:
+                if any(allergen in ing for ing in ingredients):
+                    print("*** This recipe contains at least 1 ingredient that you are allergic to. ***")
+            print(ingredients)
