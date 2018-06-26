@@ -51,7 +51,7 @@ food_allergies = input("Do you have any food allergies ('yes' if yes)? ").title(
 if food_allergies == "yes".title():
     while True:
         try:
-            allergen = input("What are you allergic to (please input one at a time)? ").title()
+            allergen = input("What are you allergic to (please input one at a time or 'done' when finished)? ").title()
             allergen = allergen.title()
             if allergen == "done".title():
                 allergen_count = len(allergens)
